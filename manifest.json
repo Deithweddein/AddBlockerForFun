@@ -1,0 +1,22 @@
+{
+    "manifest_version": 2,
+    "name": "BlockForFun",
+    "description": "Learning about chrome extensions",
+    "version": "1.0",
+    "author": "George Iremashvili",
+    "browser_action": {
+        "default_title": "Linkedin Adblocker"
+    },
+    "permissions": [
+        "tabs",
+        "webnavigation",
+        "https://linkedin.com/"
+    ],
+    "background": {
+        "scripts": [
+            "extension.js"
+        ]
+
+    }
+      
+}
