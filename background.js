@@ -1,9 +1,37 @@
 chrome.webNavigaton.onCommited.addListener(function(tab){
     if (tab.frameId === 0) {
-        chrome.tabs.query({actove: true, lastFocusedWindow: true}, tabs => {})
-    // Todo: need some fucking fixes on this godforsaken shitty code im trying to make,
-    // but for now it works, And why the fuck does every programmer look the exact same and act the exact same.
-    // except for that one schizophrenic guy called "Terry Andrew Davis", Yet they consider him like some kind of god 
-    // yet he was an average man with sever schizophrenia.
+        chrome.tabs.query({actove: true, lastFocusedWindow: true}, tabs => {
+
+
+            let url = tabs[0].url;
+            let parsedUrl = url.replace("https://", "")
+            .replace("http://", "")
+            .replace("www.", "")
+
+            let domain = parsedUrl.slice(0, parsedUrl.indexOf("/") == -1 ? parsedUrl.length : parsedUrl.indexOf("/"))
+            .slice(0, parsedUrl.indexOf(".") == -1 ? parsedUrl.length : parsedUrl.indexOf("?"));
+
+            try{
+                if (domain.length < 1 || domain === null || domain === undefined) {
+                    return;
+                }
+                else if (domain == "linkedin.com")
+                {
+                    runLinkedinScript();
+                    return;
+                }
+            } catch (err) {
+                throw err;
+            }
+
+            
+        })
     }
-})
+});
+
+function runLinkedinScript() {
+    chrome.tabs.executeScript({
+        file: "linkedin.js"
+    });
+    return true;
+}
